@@ -19,15 +19,15 @@ If bundler is not being used to manage dependencies, install the gem by executin
 ```ruby
 require "libconsole"
 
-class MyClass
+class MyClass < Libconsole::CI::Github::Attr
     extend Libconsole::CI::Github
-    include Libconsole::CI::Github::Attr
 end
 
 MyClass.info("info")
 
 m = MyClass.new
 m.add_path("/usr/bin")
+m.export_variable("CC", "gcc")
 ```
 
 ## Development
