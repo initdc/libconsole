@@ -1,10 +1,9 @@
-name: Ruby
+name: Should Exit
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - master
       - dev
 
   pull_request:
@@ -30,5 +29,5 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
-    - name: Run the default task
-      run: bundle exec rake
+    - name: Run the special test task
+      run: bundle exec rspec spec/ci/failed.rb
