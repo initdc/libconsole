@@ -1,0 +1,33 @@
+name: Color Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
+
+  pull_request:
+
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Ruby ${{ matrix.ruby }}
+    strategy:
+      matrix:
+        ruby:
+          - '2.7.0'
+          - '3.0.0'
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
+    - name: Run the special test task
+      run: bundle exec ruby lib/libconsole/lang/js_test.rb
