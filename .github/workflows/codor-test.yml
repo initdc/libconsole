@@ -31,3 +31,6 @@ jobs:
         bundler-cache: true
     - name: Run the special test task
       run: bundle exec ruby lib/libconsole/lang/js_test.rb
+    - name: Run the color table
+      run: bundle exec ruby lib/libconsole/color_table.rb
+
