@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    libconsole (0.2.4)
+    libconsole (0.3.0)
 
 GEM
   remote: https://rubygems.org/
