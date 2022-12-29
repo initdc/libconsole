@@ -100,12 +100,14 @@ console.table(comp)
 
 console.time_end("time")
 console.time("time")
-
+console.time
 30.times do
   sleep 0.001
   console.time_log("time")
 end
+console.time_log
 console.time_end("time")
+console.time_log
 console.time_log("time")
 console.time_log("time")
 

@@ -74,18 +74,18 @@ module Libconsole
       end
 
       def count(label = "default")
-        @count_state[:label] = 0 unless @count_state[:label]
-        @count_state[:label] += 1
-        pre_puts "#{label}: #{@count_state[:label]}"
+        @count_state[label.to_sym] = 0 unless @count_state[label.to_sym]
+        @count_state[label.to_sym] += 1
+        pre_puts "#{label}: #{@count_state[label.to_sym]}"
       end
 
       def count_reset(label = "default")
-        unless @count_state[:label]
+        unless @count_state[label.to_sym]
           pre_puts "Count for '#{label}' does not exist"
           return
         end
-        @count_state[:label] = 0
-        pre_puts "#{label}: #{@count_state[:label]}"
+        @count_state[label.to_sym] = 0
+        pre_puts "#{label}: #{@count_state[label.to_sym]}"
       end
 
       def dir(*argv)
@@ -123,34 +123,34 @@ module Libconsole
       end
 
       def time(label = "default")
-        if @time_start_state[:label]
+        if @time_start_state[label.to_sym]
           pre_puts yellow("Timer '#{label}' already exists")
         else
           # https://docs.ruby-lang.org/en/master/Time.html#method-i-tv_usec
-          @time_start_state[:label] = Time.now
+          @time_start_state[label.to_sym] = Time.now
         end
       end
 
       def time_end(label = "default")
-        unless @time_start_state[:label]
+        unless @time_start_state[label.to_sym]
           pre_puts "Timer '#{label}' does not exist"
           return
         end
         now = Time.now
-        range = now - @time_start_state[:label]
-        range_ms = (range.to_f * 1000).truncate(6)
+        range = now - @time_start_state[label.to_sym]
+        range_ms = format("%.6f", range.to_f * 1000)
         pre_puts "#{label}: #{range_ms} ms - timer ended"
-        @time_start_state[:label] = nil
+        @time_start_state[label.to_sym] = nil
       end
 
       def time_log(label = "default")
-        unless @time_start_state[:label]
+        unless @time_start_state[label.to_sym]
           pre_puts "Timer '#{label}' does not exist"
           return
         end
         now = Time.now
-        range = now - @time_start_state[:label]
-        range_ms = (range.to_f * 1000).truncate(6)
+        range = now - @time_start_state[label.to_sym]
+        range_ms = format("%.6f", range.to_f * 1000)
         pre_puts "#{label}: #{range_ms} ms"
       end
 
