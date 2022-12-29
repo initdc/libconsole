@@ -74,8 +74,7 @@ module Libconsole
       end
 
       def count(label = "default")
-        @count_state[:label] = 0 unless @count_state[:label]
-        @count_state[:label] += 1
+        _nz_add(@count_state[:label], 1)
         pre_puts "#{label}: #{@count_state[:label]}"
       end
 
@@ -111,11 +110,9 @@ module Libconsole
       end
 
       def group_end
-        @indet_count -= @indet_size
-        @indet_count = 0 if @indet_count.negative?
+        _nz_minus(@indet_count, @indet_size)
         @indet = @indet_symbol * @indet_count
-        @group_tier -= 1
-        @group_tier = 0 if @group_tier.negative?
+        _nz_minus(@group_tier, 1)
       end
 
       def table(*msg)
@@ -189,6 +186,16 @@ module Libconsole
       def _prefix(pre, args)
         args unless pre
         %(#{pre}#{args})
+      end
+
+      def _nz_add(val, step)
+        val ||= 0
+        val += step
+      end
+
+      def _nz_minus(val, step)
+        val -= step
+        val = 0 if val.negative?
       end
     end
   end
