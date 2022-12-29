@@ -127,7 +127,7 @@ module Libconsole
           pre_puts yellow("Timer '#{label}' already exists")
         else
           # https://docs.ruby-lang.org/en/master/Time.html#method-i-tv_usec
-          @time_start_state[:label] = Time.now.tv_usec
+          @time_start_state[:label] = Time.now
         end
       end
 
@@ -136,9 +136,9 @@ module Libconsole
           pre_puts "Timer '#{label}' does not exist"
           return
         end
-        now = Time.now.tv_usec
+        now = Time.now
         range = now - @time_start_state[:label]
-        range_ms = range.fdiv(1000)
+        range_ms = (range.to_f * 1000).truncate(6)
         pre_puts "#{label}: #{range_ms} ms - timer ended"
         @time_start_state[:label] = nil
       end
@@ -148,9 +148,9 @@ module Libconsole
           pre_puts "Timer '#{label}' does not exist"
           return
         end
-        now = Time.now.tv_usec
+        now = Time.now
         range = now - @time_start_state[:label]
-        range_ms = range.fdiv(1000)
+        range_ms = (range.to_f * 1000).truncate(6)
         pre_puts "#{label}: #{range_ms} ms"
       end
 
