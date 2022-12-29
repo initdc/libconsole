@@ -139,7 +139,7 @@ module Libconsole
         now = Time.now.tv_usec
         range = now - @time_start_state[:label]
         range_ms = range.fdiv(1000)
-        pre_puts "#{label}: #{range} ms - timer ended"
+        pre_puts "#{label}: #{range_ms} ms - timer ended"
         @time_start_state[:label] = nil
       end
 
@@ -151,7 +151,7 @@ module Libconsole
         now = Time.now.tv_usec
         range = now - @time_start_state[:label]
         range_ms = range.fdiv(1000)
-        pre_puts "#{label}: #{range} ms"
+        pre_puts "#{label}: #{range_ms} ms"
       end
 
       def trace(*argv)
