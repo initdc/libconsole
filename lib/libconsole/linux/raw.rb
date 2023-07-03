@@ -108,9 +108,10 @@ module Libconsole
           pre_puts "Timer '#{label}' does not exist", "warn"
           return
         end
-        now = Time.now
-        range = now - @time_start_state[label.to_sym]
-        pre_puts [label, "timer ended", argv], range.to_f
+        start = @time_start_state[label.to_sym]
+        finish = Time.now
+        range = (finish.tv_sec - start.tv_sec) + (finish.tv_nsec - start.tv_nsec) * 1e-9
+        pre_puts [label, "timer ended", argv], range
         @time_start_state[label.to_sym] = nil
       end
 
@@ -120,9 +121,10 @@ module Libconsole
           pre_puts "Timer '#{label}' does not exist", "warn"
           return
         end
-        now = Time.now
-        range = now - @time_start_state[label.to_sym]
-        pre_puts [label, argv], range.to_f
+        start = @time_start_state[label.to_sym]
+        finish = Time.now
+        range = (finish.tv_sec - start.tv_sec) + (finish.tv_nsec - start.tv_nsec) * 1e-9
+        pre_puts [label, argv], range
       end
 
       private

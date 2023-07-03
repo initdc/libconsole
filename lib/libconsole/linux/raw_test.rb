@@ -85,11 +85,11 @@ linux.time_log
 
 arr = []
 
-20.times do
+61.times do
   linux.time_log("time", arr)
   # fork { linux.count }
-  sleep 0.01
-  arr.push("a")
+  sleep 1
+  arr.push("a") if arr.size < 10
   # Process.wait
 end
 

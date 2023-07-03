@@ -136,10 +136,11 @@ module Libconsole
           pre_puts "Timer '#{label}' does not exist"
           return
         end
-        now = Time.now
-        range = now - @time_start_state[label.to_sym]
-        range_ms = format("%.6f", range.to_f * 1000)
-        pre_puts "#{label}: #{range_ms} ms - timer ended"
+        start = @time_start_state[label.to_sym]
+        finish = Time.now
+        range_ms = (finish.tv_sec - start.tv_sec) * 1000 + (finish.tv_nsec - start.tv_nsec) * 1e-6
+        range_fmt = format("%.6f", range_ms)
+        pre_puts "#{label}: #{range_fmt} ms - timer ended"
         @time_start_state[label.to_sym] = nil
       end
 
@@ -148,10 +149,11 @@ module Libconsole
           pre_puts "Timer '#{label}' does not exist"
           return
         end
-        now = Time.now
-        range = now - @time_start_state[label.to_sym]
-        range_ms = format("%.6f", range.to_f * 1000)
-        pre_puts "#{label}: #{range_ms} ms"
+        start = @time_start_state[label.to_sym]
+        finish = Time.now
+        range_ms = (finish.tv_sec - start.tv_sec) * 1000 + (finish.tv_nsec - start.tv_nsec) * 1e-6
+        range_fmt = format("%.6f", range_ms)
+        pre_puts "#{label}: #{range_fmt} ms"
       end
 
       def trace(*argv)

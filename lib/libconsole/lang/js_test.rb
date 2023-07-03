@@ -101,8 +101,8 @@ console.table(comp)
 console.time_end("time")
 console.time("time")
 console.time
-30.times do
-  sleep 0.001
+61.times do
+  sleep 1
   console.time_log("time")
 end
 console.time_log
